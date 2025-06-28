@@ -1,27 +1,36 @@
+// Cria o builder - substitui o antigo CreateHostBuilder e UseStartup<Startup>()
+using LanchesFillipe.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Aqui você registra os serviços que a aplicação vai usar
+// Equivalente ao método ConfigureServices() do Startup.cs antigo
 builder.Services.AddControllersWithViews();
+// Registra o DbContext com a string de conexão do appsettings.json
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuração do pipeline HTTP (middleware)
+// Equivalente ao método Configure() do Startup.cs antigo
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseExceptionHandler("/Home/Error"); // página de erro genérica
+    app.UseHsts(); // força HTTPS com cabeçalho de segurança
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseHttpsRedirection(); // redireciona HTTP para HTTPS
+app.UseStaticFiles();      // habilita arquivos estáticos (CSS, JS, imagens etc.)
 
-app.UseRouting();
+app.UseRouting();          // ativa o sistema de roteamento
+app.UseAuthorization();    // habilita autenticação/autorização (se houver)
 
-app.UseAuthorization();
-
+// Define a rota padrão do MVC
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+app.Run(); // Inicia a aplicação
