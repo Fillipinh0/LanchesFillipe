@@ -15,6 +15,7 @@ namespace LanchesFillipe.Controllers
 
         public IActionResult Index()
         {
+            TempData["Nome"] = "Macoratti";
             return View();
         }
 

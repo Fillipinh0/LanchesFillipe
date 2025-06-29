@@ -16,3 +16,6 @@ html {
 body {
   margin-bottom: 60px;
 }
+img.img_cards {
+    width: 240px
+}

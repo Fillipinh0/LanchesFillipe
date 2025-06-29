@@ -1,5 +1,7 @@
 // Cria o builder - substitui o antigo CreateHostBuilder e UseStartup<Startup>()
 using LanchesFillipe.Context;
+using LanchesFillipe.Repositories;
+using LanchesFillipe.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,8 @@ builder.Services.AddControllersWithViews();
 // Registra o DbContext com a string de conexão do appsettings.json
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<ILanchesRepository, LancheRepository>();
+builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 
 
 var app = builder.Build();

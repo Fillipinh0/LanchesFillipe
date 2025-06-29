@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LanchesFillipe.Models
 {
-    [Table("ca")]
+    [Table("Categorias")]
     public class Categoria
     {
         [Key]
@@ -16,7 +16,7 @@ namespace LanchesFillipe.Models
 
         [Required(ErrorMessage = "Informe a descrição da categoria")]
         [StringLength(200, ErrorMessage = "O tamanho máximo é 200 caracteres")]
-        [Display(Name = "Nome")]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
     }
 }
