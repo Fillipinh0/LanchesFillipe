@@ -8,8 +8,8 @@ namespace LanchesFillipe.Controllers
 {
     public class LancheController : Controller
     {
-        private readonly ILanchesRepository _lancheRepository;
-        public LancheController(ILanchesRepository lancheRepository)
+        private readonly ILancheRepository _lancheRepository;
+        public LancheController(ILancheRepository lancheRepository)
         {
             _lancheRepository = lancheRepository;
         }

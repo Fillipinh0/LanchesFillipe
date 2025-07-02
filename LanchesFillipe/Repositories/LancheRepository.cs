@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LanchesFillipe.Repositories
 {
-    public class LancheRepository : ILanchesRepository
+    public class LancheRepository : ILancheRepository
     {
         private readonly AppDbContext _context;
         public LancheRepository(AppDbContext contexto)

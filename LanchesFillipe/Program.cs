@@ -1,5 +1,6 @@
 // Cria o builder - substitui o antigo CreateHostBuilder e UseStartup<Startup>()
 using LanchesFillipe.Context;
+using LanchesFillipe.Models;
 using LanchesFillipe.Repositories;
 using LanchesFillipe.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,12 @@ builder.Services.AddControllersWithViews();
 // Registra o DbContext com a string de conexão do appsettings.json
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<ILanchesRepository, LancheRepository>();
+
+builder.Services.AddTransient<ILancheRepository, LancheRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
+
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 
